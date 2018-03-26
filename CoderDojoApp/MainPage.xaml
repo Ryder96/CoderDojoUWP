@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="CoderDojoApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CoderDojoApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:response="using:CoderDojoApp.Network.Response"
+    Loaded="LoadPage">
+
+    <Grid>
+        <ProgressRing x:Name="progressRing" IsActive="True" Visibility="Visible"/>
+        <SplitView  x:Name="splitView"
+                    PaneBackground="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush }"
+                    Background="{ThemeResource SystemControlChromeHighAcrylicWindowMediumBrush}"
+                    IsPaneOpen="True" OpenPaneLength="256" 
+                    CompactPaneLength="48" DisplayMode="Inline"
+                    Visibility="Collapsed">
+            <SplitView.Pane>
+                <StackPanel>
+                    <AutoSuggestBox PlaceholderText="Insert address"
+                                QueryIcon="Find"/>
+
+                    <ListView ItemsSource="{Binding}" x:Name="ListPane"
+                              IsItemClickEnabled="True"
+                              ItemClick="OnEventClick">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:Name="DataPane" x:DataType="response:DojoEvent">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Height="50" Width="50">
+                                        <Ellipse.Fill>
+                                            <ImageBrush>
+                                                <ImageBrush.ImageSource>
+                                                    <BitmapImage UriSource="{x:Bind Logo}"/>
+                                                </ImageBrush.ImageSource>
+                                            </ImageBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <TextBlock x:Name="fooTextBlock" 
+                                               Text="{x:Bind Title}" 
+                                               Style="{ThemeResource TitleTextBlockStyle}"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </SplitView.Pane>
+            <Frame x:Name="DescriptionFrame"/>
+        </SplitView>
+    </Grid>
+</Page>
